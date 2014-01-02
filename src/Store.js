@@ -99,11 +99,14 @@ NoPgStore.prototype.set = function(sid, session_data, callback) {
 	
 				if(sessions) {
 					session = sessions.shift();
-					debug.log("[NoPgStore.prototype.set(", sid, "] before db.update(); session = ", session);
+				}
+
+				if(session) {
+					debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.update(); session_data = ", session_data, ", session=", session);
 					return db.update(session, {"data":session_data, "sid":sid});
 				}
 	
-				debug.log("[NoPgStore.prototype.set(", sid, "] before db.create(); session = ", session);
+				debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.create(); session_data = ", session_data);
 				return db.create(session_type)({"data":session_data, "sid":sid});
 			}).commit();
 		}).then(function() {
