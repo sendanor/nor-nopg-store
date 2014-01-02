@@ -91,7 +91,7 @@ NoPgStore.prototype.set = function(sid, session_data, callback) {
 		debug.log("[NoPgStore.prototype.set] sid = " + sid);
 
 		self._type_promise.then(function(session_type) {
-			return NoPg.start(self._config).then(function(db) {
+			return NoPg.start(self._pg).then(function(db) {
 				return _db = db;
 			}).search(session_type)({"sid":sid}).then(function(db) {
 				var sessions = db.fetch(), session;
