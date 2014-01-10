@@ -24,7 +24,7 @@ function NoPgStore(options) {
 	// FIXME: Implement rollback if connection fails
 	// FIXME: Currently the app will UPDATE the type each time the NoPgStore instance is created. Maybe not do that if nothing is changed.
 	self._type_promise = NoPg.start(self._pg).then(function(db) {
-		return db.createOrReplaceType(self._type)({"$schema":{"type": "object"}}).commit();
+		return db.declareType(self._type)({"$schema":{"type": "object"}}).commit();
 	}).then(function(db) {
 		return db.fetch();
 	});
