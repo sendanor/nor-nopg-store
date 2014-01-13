@@ -11,7 +11,7 @@ var NoPg = require('nor-nopg');
 var Store = require('connect').session.Store;
 
 function NoPgStore(options) {
-	debug.log('NoPgStore(options=', options, ')');
+	//debug.log('NoPgStore(options=', options, ')');
 	options = options || {};
 	//Store.call(this, options);
 	var self = this;
@@ -36,7 +36,7 @@ NoPgStore.prototype = new Store();
 NoPgStore.prototype.get = function(sid, callback) {
 	var self = this, sessions, _db;
 	try {
-		debug.log("NoPgStore.prototype.get(", sid, ") with sid=", sid);
+		//debug.log("NoPgStore.prototype.get(", sid, ") with sid=", sid);
 
 		self._type_promise.then(function(session_type) {
 			return NoPg.start(self._pg).then(function(db) {
@@ -47,7 +47,7 @@ NoPgStore.prototype.get = function(sid, callback) {
 			}).commit();
 		}).then(function nopgstore_get_success() {
 			var session;
-			debug.log("NoPgStore.prototype.get(", sid, ") succeeds with sessions: ", sessions);
+			//debug.log("NoPgStore.prototype.get(", sid, ") succeeds with sessions: ", sessions);
 			if(!sessions) {
 				callback(null);
 			} else {
@@ -60,7 +60,7 @@ NoPgStore.prototype.get = function(sid, callback) {
 				}
 			}
 		}).fail(function nopgstore_get_fail(err) {
-			debug.log("NoPgStore.prototype.get(", sid, ") failed: ", err);
+			//debug.log("NoPgStore.prototype.get(", sid, ") failed: ", err);
 			if(_db) {
 				_db.rollback().fail(function(err) {
 					console.error("Error while rollback: " + err);
@@ -87,32 +87,32 @@ NoPgStore.prototype.set = function(sid, session_data, callback) {
 			};
 		}
 
-		debug.log("[NoPgStore.prototype.set] session = " + session_data);
-		debug.log("[NoPgStore.prototype.set] sid = " + sid);
+		//debug.log("[NoPgStore.prototype.set] session = " + session_data);
+		//debug.log("[NoPgStore.prototype.set] sid = " + sid);
 
 		self._type_promise.then(function(session_type) {
 			return NoPg.start(self._pg).then(function(db) {
 				return _db = db;
 			}).search(session_type)({"sid":sid}).then(function(db) {
 				var sessions = db.fetch(), session;
-				debug.log("[NoPgStore.prototype.set(", sid, "] sessions = ", sessions);
+				//debug.log("[NoPgStore.prototype.set(", sid, "] sessions = ", sessions);
 	
 				if(sessions) {
 					session = sessions.shift();
 				}
 
 				if(session) {
-					debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.update(); session_data = ", session_data, ", session=", session);
+					//debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.update(); session_data = ", session_data, ", session=", session);
 					return db.update(session, {"data":session_data, "sid":sid});
 				}
 	
-				debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.create(); session_data = ", session_data);
+				//debug.log("[NoPgStore.prototype.set(sid=", sid, "] before db.create(); session_data = ", session_data);
 				return db.create(session_type)({"data":session_data, "sid":sid});
 			}).commit();
 		}).then(function() {
 			callback();
 		}).fail(function(err) {
-			debug.log("NoPgStore.prototype.set(", sid, ") failed: ", err);
+			//debug.log("NoPgStore.prototype.set(", sid, ") failed: ", err);
 			if(_db) {
 				_db.rollback().fail(function(err) {
 					console.error("Error while rollback: " + err);
@@ -142,7 +142,7 @@ NoPgStore.prototype.destroy = function(sid, callback) {
 		};
 	}
 
-	debug.log("[NoPgStore.prototype.destroy] self._obj = ", self._obj);
+	//debug.log("[NoPgStore.prototype.destroy] self._obj = ", self._obj);
 
 	self._type_promise.then(function(session_type) {
 		NoPg.start(self._pg).then(function(db) {
@@ -151,7 +151,7 @@ NoPgStore.prototype.destroy = function(sid, callback) {
 	}).then(function() {
 		callback();
 	}).fail(function() {
-		debug.log("NoPgStore.prototype.destroy(", sid, ") failed: ", err);
+		//debug.log("NoPgStore.prototype.destroy(", sid, ") failed: ", err);
 		if(_db) {
 			_db.rollback().fail(function(err) {
 				console.error("Error while rollback: " + err);
