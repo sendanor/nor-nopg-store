@@ -53,6 +53,8 @@ NoPgStore.prototype.get = function(sid, callback) {
 			} else {
 				session = sessions.shift();
 				if(session && session.data) {
+					session.data.$id = session.$id;
+					session.data.$created = session.$created;
 					callback(null, session.data);
 				} else {
 					//throw new TypeError('Failed to read session #' + sid);
