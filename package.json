@@ -17,7 +17,7 @@
     "store"
   ],
   "dependencies": {
-    "nor-nopg": ">= 0.1.6",
+    "nor-nopg": ">= 0.1.12",
     "nor-debug": "*",
     "connect": "*"
   },
