@@ -1,6 +1,6 @@
 {
   "name": "nor-nopg-store",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Express/Connect Session Store in nor-nopg",
   "main": "src/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "store"
   ],
   "dependencies": {
-    "nor-nopg": ">= 0.1.27 <0.2.0",
+    "nor-nopg": ">= 0.1.31 <0.2.0",
     "nor-debug": ">= 0.1.19 <1.2.0",
     "connect": ">= 2.12.0 <2.13.0"
   },
