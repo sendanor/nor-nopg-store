@@ -1,6 +1,6 @@
 {
   "name": "nor-nopg-store",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Express/Connect Session Store in nor-nopg",
   "main": "src/index.js",
   "scripts": {
@@ -16,9 +16,9 @@
     "session",
     "store"
   ],
-  "dependencies": {
-    "nor-nopg"  : ">= 0.1.52 < 0.2.0",
+  "peerDependencies": {
     "nor-debug" : ">= 0.1.38 < 1.2.0",
+    "nor-nopg"  : ">= 0.1.57 < 0.2.0",
     "connect"   : ">= 2.12.0 < 2.13.0"
   },
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
