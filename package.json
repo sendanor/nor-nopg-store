@@ -1,6 +1,6 @@
 {
   "name": "nor-nopg-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Express/Connect Session Store in nor-nopg",
   "main": "src/index.js",
   "scripts": {
